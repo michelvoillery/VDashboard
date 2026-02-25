@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd'
-import { GripVertical, Plus, Pencil, Trash2, Layout, Settings } from 'lucide-react'
+import { DragDropContext, Droppable } from '@hello-pangea/dnd'
+import { Plus, Pencil, Trash2, Layout, Settings } from 'lucide-react'
+import ServiceCard from './components/ServiceCard'
 
 function App() {
   const [config, setConfig] = useState({ 
@@ -276,50 +277,18 @@ function App() {
                 {(provided) => (
                   <div {...provided.droppableProps} ref={provided.innerRef} className="flex flex-wrap gap-6 min-h-[100px]">
                     {(section.services || []).map((service, index) => (
-                      <Draggable key={`${section.id}-${index}`} draggableId={`${section.id}-${index}`} index={index} isDragDisabled={!isEditMode}>
-                        {(provided) => (
-                          <div 
-                            ref={provided.innerRef} 
-                            {...provided.draggableProps} 
-                            {...provided.dragHandleProps} 
-                            style={{ 
-                              ...provided.draggableProps.style,
-                              width: `${config.cardSize || 200}px` 
-                            }}
-                            className="flex-shrink-0"
-                          >
-                            <div 
-                              className="p-6 border border-slate-700/50 transition-all group relative h-full flex flex-col items-center justify-center text-center" 
-                              style={{ 
-                                ...cardStyle, 
-                                height: `${config.cardHeight || 160}px` 
-                              }}
-                            >
-                              <div className="absolute top-3 right-3">
-                                {!service.localIp ? <div className="w-3 h-3 rounded-full border border-slate-500 border-dashed" title="No IP"></div> : 
-                                <div className={`w-3 h-3 rounded-full shadow-sm transition-colors duration-500 ${statuses[service.localIp] === 'online' ? 'bg-green-500 shadow-green-500/50' : statuses[service.localIp] === 'offline' ? 'bg-amber-500 shadow-amber-500/50' : 'bg-slate-600'}`} title={statuses[service.localIp] || 'Checking...'}></div>}
-                              </div>
-                              {isEditMode && (
-                                <div className="absolute -top-2 -right-2 flex gap-1 z-20">
-                                  <button onClick={() => { setEditingService({ sectionId: section.id, index }); setNewService(service); setIsModalOpen(true); }} className="bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center shadow-lg"><Pencil size={12} /></button>
-                                  <button onClick={() => deleteService(section.id, index)} className="bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shadow-lg">×</button>
-                                </div>
-                              )}
-                              <img 
-                                src={service.customIcon ? `/api/icons/images/${service.customIcon}` : `${iconCDN}${service.icon}.png`} 
-                                alt="" 
-                                style={{ width: `${config.iconSize || 64}px`, height: `${config.iconSize || 64}px` }}
-                                className="mb-4 object-contain" 
-                                onError={(e) => { if (!service.customIcon) e.target.src = 'https://via.placeholder.com/64?text=?' }} 
-                              />
-                              <h3 className="font-semibold w-full px-2" style={{ fontSize: `${config.titleFontSize}px` }}>{service.name}</h3>
-                              <p className="truncate mt-1 opacity-80 w-full px-2" style={{ fontSize: `${config.urlFontSize}px` }}>{service.url}</p>
-                              {service.localIp && <p className="truncate opacity-60 w-full px-2" style={{ fontSize: `${config.ipFontSize}px` }}>{service.localIp}</p>}
-                              {!isEditMode && <a href={service.url} target="_blank" rel="noopener noreferrer" className="absolute inset-0"></a>}
-                            </div>
-                          </div>
-                        )}
-                      </Draggable>
+                      <ServiceCard 
+                        key={`${section.id}-${index}`}
+                        service={service}
+                        index={index}
+                        sectionId={section.id}
+                        isEditMode={isEditMode}
+                        statuses={statuses}
+                        config={config}
+                        cardStyle={cardStyle}
+                        onEdit={(s, i) => { setEditingService({ sectionId: section.id, index: i }); setNewService(s); setIsModalOpen(true); }}
+                        onDelete={deleteService}
+                      />
                     ))}
                     {provided.placeholder}
                     {isEditMode && (
