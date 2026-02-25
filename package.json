@@ -1,0 +1,14 @@
+{
+  "name": "homelab-dashboard",
+  "version": "1.0.0",
+  "scripts": {
+    "dev:server": "node server/index.js",
+    "dev:client": "npm run dev --prefix client",
+    "dev": "concurrently \"node server/index.js\" \"npm run dev --prefix client\"",
+    "clean": "pkill -9 -f \"node server/index.js\" || true && pkill -9 -f vite || true",
+    "stop": "fuser -k 3001/tcp || true && fuser -k 5173/tcp || true"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

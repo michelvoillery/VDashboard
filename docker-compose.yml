@@ -1,0 +1,9 @@
+services:
+  homelab-dashboard:
+    build: .
+    container_name: homelab-dashboard
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
