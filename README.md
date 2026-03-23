@@ -2,7 +2,7 @@
 
 A sleek, minimal, and highly customizable homelab dashboard for monitoring your local services and server health.
 
-<img src="dashboard.png" width="100" height="100">
+<img src="dashboard.png" width="700" height="700">
 
 ## ✨ Features
 
