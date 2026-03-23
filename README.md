@@ -86,6 +86,8 @@ rm -f data/config.json && rm -rf data/backgrounds/* && rm -rf data/icons/*
 
 ## 📷 Screenshots
 
+<img src="/images/note.png" width="750" height="750">
+
 ## 🚀 Demo
 https://vdashboard.onrender.com
 
