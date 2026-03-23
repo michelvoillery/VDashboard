@@ -1,72 +1,89 @@
-# Homelab Dashboard
+# VDashboard
 
-A sleek, highly customizable dashboard for managing and monitoring your homelab services.
+A sleek, minimal, and highly customizable homelab dashboard for monitoring your local services and server health.
+
+![VDashboard Icon](client/public/favicon.svg)
 
 ## ✨ Features
 
-- **Categorized Sections:** Organize your services into logical groups.
-- **Drag & Drop:** Reorder services or move them between sections in Edit Mode.
-- **Live Status Monitoring:** Automatic ICMP (Ping) and TCP (Port) connectivity checks.
-- **Deep Customization:** Control colors, fonts, sizes, transparency, and background images.
-- **Custom Icons:** Library support via CDN or direct file upload.
-- **Production Ready:** Integrated Docker container with persistent storage.
+- **Service Monitoring:** Real-time status checks (online/offline) for your services via ICMP ping or TCP port checks.
+- **System Stats:** Live monitoring of CPU load, Memory usage, and Disk space directly on the dashboard.
+- **Deep Search:** A minimal, translucent search bar to quickly find services by name, URL, IP, or tags.
+- **Customizable Tags:** Add colored tags to your service cards with flexible placement (corners, top, or bottom).
+- **Sticky Notes:** Leave reminders for yourself with a translucent, "post-it" style note that you can customize and color.
+- **Appearance Settings:** Complete control over:
+  - Background images and scaling (Cover, Contain, Stretch, Auto).
+  - Card dimensions, rounding, padding, and opacity.
+  - Dashboard and Section header fonts, sizes, and colors.
+  - Global tag styling and placement.
+- **Mobile Friendly:** Fully responsive design that looks great on any screen.
 
----
+## 🚀 Quick Start (Docker)
 
-## 🐳 Docker Deployment (Recommended)
+The easiest way to get VDashboard running is using Docker.
 
-The easiest way to run the dashboard is via Docker.
-
-### 1. Start the Container
-From the root directory:
-```bash
-docker-compose up -d --build
-```
-The dashboard will be live at `http://localhost:3001`.
-
-### 2. Backup & Migration
-All configuration and uploaded assets are stored in the `./data` folder on your host.
-- **Backup:** Copy the `./data` folder.
-- **Reset:** Delete `data/config.json` and restart the container.
-- **Migration:** Move the project files + your `data` folder to a new server and run `docker-compose up -d`.
-
----
-
-## 🚀 Development Setup
-
-If you want to run the code without Docker:
-
-1. **Install Dependencies:**
+1. **Clone the repository:**
    ```bash
-   npm install
-   cd client && npm install
-   cd ../server && npm install
+   git clone <your-repo-url>
+   cd homelab-dashboard
    ```
-2. **Start Services:**
+
+2. **Start the dashboard:**
+   ```bash
+   docker compose up -d --build
+   ```
+
+3. **Access the dashboard:**
+   Open your browser and navigate to `http://localhost:3001`.
+
+## 🛠️ Manual Installation (Development)
+
+If you prefer to run it without Docker:
+
+### Prerequisites
+- Node.js (v18+)
+- npm
+
+### Backend Setup
+1. Navigate to the server directory:
+   ```bash
+   cd server
+   npm install
+   ```
+2. Start the backend:
+   ```bash
+   npm start
+   ```
+   *The server will run on port 3001.*
+
+### Frontend Setup
+1. Navigate to the client directory:
+   ```bash
+   cd client
+   npm install
+   ```
+2. Start the frontend:
    ```bash
    npm run dev
    ```
-   *Note: Requires both ports 3001 and 5173 to be free.*
+   *The frontend will run on port 5173 and proxy requests to the backend.*
 
----
+## 📂 Data & Persistence
 
-## 📝 Gemini Project Notes (Context for Future Sessions)
+All your configuration and uploaded assets are stored in the `data/` directory:
+- `data/config.json`: Stores your dashboard layout and appearance settings.
+- `data/backgrounds/`: Stores your uploaded background images.
+- `data/icons/`: Stores your custom service icons.
 
-### Architecture
-- **Tech Stack:** React (Vite) + Node.js (Express).
-- **Storage:** Flat-file JSON (`data/config.json`) for settings and service definitions.
-- **Networking:** 
-  - Frontend uses a Vite Proxy (`/api`) in development.
-  - Server hosts the production build (`client/dist`) using `express.static`.
-  - **Important:** Express is pinned to `^4.18.2` to support the simple `*` wildcard for catch-all routing (Express 5 has strict `path-to-regexp` rules that cause crashes with `*`).
+**Note:** If using Docker, ensure the `./data` volume is correctly mapped to `/app/data` to persist your settings across container updates.
 
-### Key Logic
-- **Migration:** `server/index.js` contains a GET handler that migrates old flat `services` arrays into the new `sections` object structure on-the-fly.
-- **Connectivity:** The `/api/status` endpoint handles bulk status checks. It detects ports (`:`) to choose between `ping` (ICMP) or `net.connect` (TCP).
-- **Persistence:** POST `/api/config` has safety checks to prevent overwriting `config.json` with empty data if the frontend fails to load the state correctly.
+## 🧹 Resetting the Dashboard
 
-### File Structure
-- `/client`: React source code and Vite config.
-- `/server`: Express API and production hosting logic.
-- `/data`: Volume-mapped storage for JSON config, backgrounds, and custom icons.
-- `Dockerfile`: Multi-stage build (Node 20-slim).
+To reset VDashboard to its original state, run the following command from the root directory:
+```bash
+rm -f data/config.json && rm -rf data/backgrounds/* && rm -rf data/icons/*
+```
+
+## 📝 License
+
+Distributed under the MIT License. See `LICENSE` for more information.

@@ -7,6 +7,7 @@ const path = require('path');
 const multer = require('multer');
 const ping = require('ping');
 const net = require('net');
+const si = require('systeminformation');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -230,6 +231,30 @@ app.post('/api/config', (req, res) => {
   } catch (err) {
     console.error('Unexpected error in POST /api/config:', err);
     res.status(500).send('Internal server error');
+  }
+});
+
+// Get system metrics
+app.get('/api/sysinfo', async (req, res) => {
+  try {
+    const [cpu, mem, disk] = await Promise.all([
+      si.currentLoad(),
+      si.mem(),
+      si.fsSize()
+    ]);
+
+    // Use the first partition as a general indicator of disk space
+    const primaryDisk = disk[0] || { size: 0, used: 0 };
+
+    res.json({
+      cpu: Math.round(cpu.currentLoad),
+      mem: Math.round((mem.active / mem.total) * 100),
+      disk: Math.round((primaryDisk.used / primaryDisk.size) * 100),
+      temp: 0 // Placeholder for temperature if needed later
+    });
+  } catch (err) {
+    console.error('Error fetching system info:', err);
+    res.status(500).send('Error fetching system info');
   }
 });
 

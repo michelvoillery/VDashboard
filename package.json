@@ -1,5 +1,5 @@
 {
-  "name": "homelab-dashboard",
+  "name": "vdashboard",
   "version": "1.0.0",
   "scripts": {
     "dev:server": "node server/index.js",
