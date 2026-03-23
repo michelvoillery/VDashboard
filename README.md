@@ -22,9 +22,8 @@ A sleek, minimal, and highly customizable homelab dashboard for monitoring your 
 
 The easiest way to get VDashboard running is using Docker.
 
-1. **Clone the repository:**
+1. **Clone or download the repository:**
    ```bash
-   git clone <your-repo-url>
    cd homelab-dashboard
    ```
 
