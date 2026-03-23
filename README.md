@@ -2,7 +2,7 @@
 
 A sleek, minimal, and highly customizable homelab dashboard for monitoring your local services and server health.
 
-![VDashboard Icon](client/public/favicon.svg)
+![VDashboard Icon](client/public/favicon.svg =512x)
 
 ## ✨ Features
 
