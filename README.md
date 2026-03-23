@@ -86,10 +86,15 @@ rm -f data/config.json && rm -rf data/backgrounds/* && rm -rf data/icons/*
 
 ## 📷 Screenshots
 
-<img src="/images/note.png" width="300"><img src="/images/black.png" width="300"><img src="/images/gray.png" width="300"><img src="/images/frosted.png" width="300"><img src="/images/transparent.png" width="300">
+<img src="/images/note.png" width="300">
+<img src="/images/black.png" width="300">
+<img src="/images/gray.png" width="300">
+<img src="/images/frosted.png" width="300">
+<img src="/images/transparent.png" width="300">
 
 ## 🚀 Demo
 https://vdashboard.onrender.com
+**FYI: The demo is on a free server so if it does not load or gives an error, refresh till it shows**🙏
 
 ## 📝 License
 
