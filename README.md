@@ -94,7 +94,7 @@ rm -f data/config.json && rm -rf data/backgrounds/* && rm -rf data/icons/*
 
 ## 🚀 Demo
 https://vdashboard.onrender.com   
-**FYI: The demo is on a free server so if it does not load or gives an error, refresh till it shows**🙏
+**FYI: The demo is on a free server** (if it does not load or gives an error, refresh till it shows)🙏
 
 ## 📝 License
 
