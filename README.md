@@ -93,8 +93,8 @@ rm -f data/config.json && rm -rf data/backgrounds/* && rm -rf data/icons/*
 <img src="/images/transparent.png" width="300">
 <img src="/images/appearance.png" width="300">
 
-Background wallpapers can be found here:
-https://4kwallpapers.com/nature/winter-mountain-24311.html
+Background wallpapers can be found here:   
+https://4kwallpapers.com/nature/winter-mountain-24311.html   
 https://4kwallpapers.com/nature/mountain-landscape-24317.html
 
 ## 🚀 Demo
