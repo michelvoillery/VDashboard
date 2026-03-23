@@ -84,6 +84,11 @@ To reset VDashboard to its original state, run the following command from the ro
 rm -f data/config.json && rm -rf data/backgrounds/* && rm -rf data/icons/*
 ```
 
+## 📷 Screenshots
+
+## 🚀 Demo
+https://vdashboard.onrender.com
+
 ## 📝 License
 
 Distributed under the MIT License. See `LICENSE` for more information.
